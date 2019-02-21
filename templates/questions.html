@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>questions</title>
+</head>
+<body>
+    <h1>Questions</h1>
+    <form action='/answers' method='POST'>
+        <ol>
+            {% for i in q %}
+                <li><u>{{i}}</u></li>
+                {% for j in o[i] %}
+                    <input type='radio' value='{{j}}' name='{{i}}' />{{j}}
+                {% endfor %}
+            {% endfor %}
+        </ol>
+        <input type="submit" value="submit" />
+    </form>
+</body>
+</html>
