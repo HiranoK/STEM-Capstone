@@ -49,6 +49,7 @@ def email5():
 
 @app.route("/results")
 def results():
+    
     return render_template("results.html")
 
 
@@ -56,6 +57,9 @@ def results():
 def resources():
     return render_template("resources.html")
 
+
+QArray:{}
+    
 
 original_questions = {
     #Format is 'question':[options]
@@ -72,7 +76,7 @@ original_questions = {
 }
 
 
-questions = copy.deepcopy(original_questions)
+Quizquestions = copy.deepcopy(original_questions)
 
 def shuffle(q):
     selected_keys = []
@@ -87,20 +91,37 @@ def shuffle(q):
 
 @app.route('/questions')
 def quiz():
-    questions_shuffled = shuffle(questions)
-    for i in questions.keys():
-        random.shuffle(questions[i])
-    return render_template('questions.html', q = questions_shuffled, o = questions)
+    questions_shuffled = shuffle(Quizquestions)
+    for i in Quizquestions.keys():
+        random.shuffle(Quizquestions[i])
+    return render_template('questions.html', q = questions_shuffled, o = Quizquestions)
 
 
+correctQuiz = 0
+    
+    
 @app.route('/answers', methods=['POST'])
 def answers():
-    correct = 0
     for i in questions.keys():
         answered = request.form[i]
-    if original_questions[i][0] == answered:
-        correct = correct+1
-    return '<h1>Correct Answers: <u>'+str(correct)+'</u></h1>'
+        if original_questions[i][0] == answered:
+            correctQuiz = correctQuiz +1
+            QArray[Q+1] = True
+    return '<h1>Correct Answers: <u>'+str(correctQuiz)+'</u></h1>'
+
+#same concept for game here
+
+
+
+#At the very end 
+
+correctResult = correctQuiz + correctGame
+
+
+@app.route("/results")
+def results():
+    return '<h1> Total Results: <u>'+str(correctResult)+'</u></h1>'
+
 
 if __name__ == "__main__":
     app.run(debug=True)
