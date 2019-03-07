@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>inbox</title>
+</head>
+<body>
+    <h1> Inbox </h1>
+    <a href="/email1">Email1</a>
+    <div></div>
+    <a href="/email2">Email2</a>
+    <div></div>
+    <a href="/email3">Email3</a>
+    <div></div>
+    <a href="/email4">Email4</a>
+    <div></div>
+    <a href="/email5">Email5</a>
+    <p> When you have selected your answers, press submit. </p>
+    <form action='/results' method='POST'>
+        <ol>
+            {% for i in q %}
+                <li><u> Is {{i}} legitimate?</u></li>
+                {% for j in o[i] %}
+                    <input type='radio' value='{{j}}' name='{{i}}' />{{j}}
+                {% endfor %}
+            {% endfor %}
+        </ol>
+        <input type="submit" value="submit" />
+    </form>
+</body>
+</html>
